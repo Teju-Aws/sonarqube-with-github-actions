@@ -38,18 +38,17 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      # 5️⃣ Run SonarQube Analysis
-      - name: SonarQube Analysis
-        run: |
-          mvn sonar:sonar \
-            -Dsonar.host.url=$SONAR_HOST_URL \
-            -Dsonar.login=$SONAR_TOKEN
+      # 5️⃣ Run SonarQube Analysis (explicit plugin version)
+      - name: Run SonarQube analysis
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
       # 6️⃣ Wait for SonarQube Quality Gate
       - name: Check Quality Gate Status
         run: |
           # Poll SonarQube API for quality gate status
-          PROJECT_KEY="project"  # Replace with your SonarQube project key
+          PROJECT_KEY="project"  # 🔑 Replace with your actual SonarQube project key
           STATUS=$(curl -s -u $SONAR_TOKEN: $SONAR_HOST_URL/api/qualitygates/project_status?projectKey=$PROJECT_KEY | jq -r '.projectStatus.status')
           echo "Quality Gate Status: $STATUS"
 
