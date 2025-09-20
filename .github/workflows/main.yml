@@ -49,7 +49,7 @@ jobs:
       - name: Check Quality Gate Status
         run: |
           # Poll SonarQube API for quality gate status
-          PROJECT_KEY="your_project_key"  # Replace with your SonarQube project key
+          PROJECT_KEY="project-1"  # Replace with your SonarQube project key
           STATUS=$(curl -s -u $SONAR_TOKEN: $SONAR_HOST_URL/api/qualitygates/project_status?projectKey=$PROJECT_KEY | jq -r '.projectStatus.status')
           echo "Quality Gate Status: $STATUS"
 
