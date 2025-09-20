@@ -48,7 +48,7 @@ jobs:
       # 6️⃣ Check Quality Gate Status
       - name: Check Quality Gate Status
         run: |
-          PROJECT_KEY="com.tcs:project"
+          PROJECT_KEY="project-1"
           ENCODED_KEY=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''$PROJECT_KEY'''))")
           
           RESPONSE=$(curl -s -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/qualitygates/project_status?projectKey=$ENCODED_KEY")
