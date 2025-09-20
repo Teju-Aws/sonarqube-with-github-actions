@@ -10,8 +10,8 @@ jobs:
   build-and-sonarqube:
     runs-on: ubuntu-latest
     env:
-      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: http://98.84.179.65:9000
+      SONAR_TOKEN: 50356e6464390fbd246ab83da6f5d73bc2aea7cf
 
     steps:
       # 1️⃣ Checkout code
@@ -43,8 +43,8 @@ jobs:
         run: |
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
             -Dsonar.projectKey=project-1 \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.login=$SONAR_TOKEN
 
       # 6️⃣ Check Quality Gate Status
       - name: Check Quality Gate Status
